@@ -9,28 +9,34 @@ public class TodoContoroler {
 
     public static void createTodo() {
         Scanner scan = new Scanner(System.in);
+
         while (true) {
+            System.out.println();
             try {
-                System.out.println("Todoの種類 ");
-                System.out.print("1.制約なし 2.期限あり 3.開始時間あり 4.開始時間・期限あり: ");
-                int todoType = Integer.parseInt(scan.nextLine());
-                if (todoType < 1 || 4 < todoType) {
-                    throw new IllegalArgumentException();
-                }
+
                 System.out.print("Todoを入力してください: ");
                 String title = scan.nextLine();
                 System.out.print("備考があれば入力してください: ");
                 String note = scan.nextLine();
 
-                if (todoType == 1) {
-                    todos.add(new SimpleTodo(title, note));
-                }
+                Todo tmp = new Todo(title, note);
+
+                System.out.print("開始日時があれば入力してください: ");
+                String start = scan.nextLine();
+
+                tmp.setStartline(start);
+
+                System.out.print("期限があれば入力してください: ");
+                String dead = scan.nextLine();
+                tmp.setDeadline(dead);
 
                 System.out.println("入力完了です");
 
+                todos.add(tmp);
                 break;
 
             } catch (Exception e) {
+                System.out.println();
                 System.err.println("入力に失敗しました。再入力してください");
                 continue;
             }
